@@ -1,0 +1,8 @@
+{
+  "build": {
+    "builder": "Python"
+  },
+  "deploy": {
+    "startCommand": "gunicorn managementstock_app.wsgi:application"
+  }
+}

@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="text-center text-2xl font-bold mb-6">Tambah Barang</h1>
+
+<!-- WRAPPER FORM AGAR DI TENGAH -->
+<div class="flex justify-center">
+
+    <!-- CARD FORM -->
+    <div class="bg-slate-100 p-6 rounded-xl shadow-md border border-gray-200 w-full max-w-xl">
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <!-- NAMA BARANG -->
+            <label class="block font-semibold text-gray-700 mb-1">Nama Barang</label>
+            <input type="text" name="nama_barang"
+                   class="w-full border border-gray-300 rounded-lg p-3 focus:ring focus:ring-blue-200 focus:outline-none mb-4">
+
+            <!-- DESKRIPSI -->
+            <label class="block font-semibold text-gray-700 mb-1">Deskripsi</label>
+            <textarea name="deskripsi" rows="3"
+                      class="w-full border border-gray-300 rounded-lg p-3 focus:ring focus:ring-blue-200 focus:outline-none mb-4"></textarea>
+
+            <!-- STOK -->
+            <label class="block font-semibold text-gray-700 mb-1">Stok</label>
+            <input type="number" name="stok"
+                   class="w-full border border-gray-300 rounded-lg p-3 focus:ring focus:ring-blue-200 focus:outline-none mb-6">
+
+            <!-- BUTTON -->
+            <button type="submit"
+                    class="bg-sky-800 hover:bg-blue-700 text-white px-5 py-2 rounded-lg shadow text-sm font-medium transition">
+                Simpan
+            </button>
+
+        </form>
+
+    </div>
+</div>
+
+{% endblock %}

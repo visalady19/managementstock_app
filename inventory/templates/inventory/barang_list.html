@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<!-- PAGE HEADER -->
+<div class="flex justify-between items-center mb-8">
+    <h1 class="text-2xl font-bold text-gray-800">Daftar Barang</h1>
+
+    <a href="/inventory/add/"
+        class="bg-sky-800 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow-sm text-sm font-medium transition">
+        Tambah Barang
+    </a>
+</div>
+
+<!-- TABLE WRAPPER -->
+<div class="bg-slate-100 border border-gray-300 rounded-xl shadow-sm p-6">
+
+    <!-- TABLE -->
+    <div class="rounded-lg overflow-hidden bg-white border border-gray-200">
+        <table class="w-full text-sm">
+
+            <!-- HEADER -->
+            <thead class="bg-slate-200 text-gray-700 border-b border-gray-300">
+                <tr>
+                    <th class="p-3 font-bold text-left">No</th>
+                    <th class="p-3 font-bold text-left w-60">Nama Barang</th>
+                    <th class="p-3 font-bold text-left">Deskripsi</th>
+                    <th class="p-3 font-bold text-center w-24">Stok</th>
+                    <th class="p-3 font-bold text-center w-32">Aksi</th>
+                </tr>
+            </thead>
+
+            <!-- BODY -->
+            <tbody>
+                {% for b in barang %}
+                <tr class="bg-slate-100 border-b border-gray-200 hover:bg-gray-50 transition">
+                    <td class="p-3 text-left font-medium text-gray-800">{{ forloop.counter }}</td>
+                    <td class="p-3 text-gray-800">{{ b.1 }}</td>
+                    <td class="p-3 text-gray-700">{{ b.2 }}</td>
+                    <td class="p-3 text-center font-semibold text-gray-900">{{ b.3 }}</td>
+                    <td class="p-3 text-center">
+                        <a href="/inventory/edit/{{ b.0 }}/"
+                            class="text-blue-600 hover:underline font-medium">Edit</a>
+                        <span class="text-gray-400 mx-1">|</span>
+                        <a href="/inventory/delete/{{ b.0 }}/"
+                            class="text-red-600 hover:underline font-medium"
+                            onclick="return confirm('Hapus data ini?')">Hapus</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+
+{% endblock %}

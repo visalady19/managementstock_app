@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Tambah Barang Masuk{% endblock %}
+
+{% block content %}
+
+<h1 class="text-center text-2xl font-bold mb-6">Tambah Barang Masuk</h1>
+
+<!-- CENTER WRAPPER -->
+<div class="flex justify-center">
+    <form method="POST" enctype="multipart/form-data"
+          class="bg-slate-100 p-6 shadow rounded-xl w-full max-w-xl border border-gray-200">
+        {% csrf_token %}
+
+        <label class="block mb-2 font-medium text-gray-700">Pilih Barang</label>
+        <select name="id_barang"
+                class="w-full border border-gray-300 p-2 rounded mb-4 focus:ring-2 focus:ring-blue-500"
+                required>
+            <option disabled selected>-- Pilih Barang --</option>
+            {% for b in barang_list %}
+            <option value="{{ b.id_barang }}">{{ b.nama_barang }}</option>
+            {% endfor %}
+        </select>
+
+        <label class="block mb-2 font-medium text-gray-700">Jumlah</label>
+        <input type="number" name="jumlah" min="1"
+               class="w-full border border-gray-300 p-2 rounded mb-4 focus:ring-2 focus:ring-blue-500"
+               required>
+
+        <label class="block mb-2 font-medium text-gray-700">Tanggal</label>
+        <input type="date" name="tanggal"
+               class="w-full border border-gray-300 p-2 rounded mb-4 focus:ring-2 focus:ring-blue-500"
+               required>
+
+        <label class="block mb-2 font-medium text-gray-700">Keterangan</label>
+        <input type="text" name="keterangan"
+               class="w-full border border-gray-300 p-2 rounded mb-4 focus:ring-2 focus:ring-blue-500">
+
+        <label class="block mb-2 font-medium text-gray-700">Upload Bukti</label>
+        <input type="file" name="bukti_m"
+               class="w-full border border-gray-300 p-2 rounded mb-6">
+
+        <button class="bg-sky-800 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow">
+            Simpan
+        </button>
+    </form>
+</div>
+
+{% endblock %}

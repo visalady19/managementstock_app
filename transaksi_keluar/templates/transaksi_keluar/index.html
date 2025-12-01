@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% block title %}Data Barang Keluar{% endblock %}
+
+{% block content %}
+
+<div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-bold">Data Barang Keluar</h1>
+
+    <a href="/keluar/add/"
+       class="bg-sky-800 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow text-sm">
+        Tambah Barang Keluar
+    </a>
+</div>
+
+<div class="bg-white border border-gray-200 shadow-sm rounded-xl overflow-hidden">
+
+    <table class="w-full border-collapse text-sm">
+
+        <!-- HEADER -->
+        <thead class="bg-slate-200 border-b border-gray-300">
+            <tr>
+                <th class="p-3 text-center font-bold">No</th>
+                <th class="p-3 text-center font-bold">Nama Barang</th>
+                <th class="p-3 text-center font-bold">Tanggal</th>
+                <th class="p-3 text-center font-bold">Penerima</th>
+                <th class="p-3 text-center font-bold">Jumlah</th>
+                <th class="p-5 text-left font-bold">Bukti</th>
+            </tr>
+        </thead>
+
+        <!-- BODY -->
+        <tbody>
+            {% for k in data %}
+            <tr class="border-b border-gray-200 hover:bg-gray-50 transition">
+                <td class="p-3 text-center font-medium">{{ forloop.counter }}</td>
+                <td class="p-3 text-center text-gray-800">{{ k.nama_barang }}</td>
+                <td class="p-3 text-center text-gray-700">{{ k.tanggal }}</td>
+                <td class="p-3 text-center text-gray-700">{{ k.penerima }}</td>
+                <td class="p-3 text-center font-semibold text-gray-900">{{ k.jumlah_k }}</td>
+
+                <td class="p-3 text-center">
+                    {% if k.bukti_k %}
+                        <img 
+                            src="/media/{{ k.bukti_k }}" 
+                            class="h-14 rounded shadow-sm border border-gray-200 cursor-pointer hover:shadow-md transition"
+                            onclick="openImageModal('/media/{{ k.bukti_k }}')"
+                        >
+                    {% else %}
+                        <span class="text-gray-400 text-sm">Tidak ada</span>
+                    {% endif %}
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+    </table>
+
+</div>
+
+
+<!-- 🔥 IMAGE MODAL -->
+<div id="imageModal"
+     class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 backdrop-blur-sm"
+     onclick="closeImageModal()">
+
+    <img id="modalImage"
+         class="max-w-4xl max-h-[90vh] rounded shadow-lg border border-gray-300"
+         onclick="event.stopPropagation()">
+</div>
+
+
+<!-- 🔥 SIMPLE IMAGE ZOOM SCRIPT -->
+<script>
+function openImageModal(src) {
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
+
+    modalImg.src = src;
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+}
+
+function closeImageModal() {
+    const modal = document.getElementById("imageModal");
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+}
+
+document.addEventListener("keydown", function(e){
+    if (e.key === "Escape") closeImageModal();
+});
+</script>
+
+{% endblock %}

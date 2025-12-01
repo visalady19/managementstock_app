@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Tambah Barang Keluar{% endblock %}
+
+{% block content %}
+
+<h1 class="text-center text-2xl font-bold mb-6">Tambah Barang Keluar</h1>
+
+<div class="flex justify-center">
+    <form method="POST" enctype="multipart/form-data"
+          class="bg-slate-100 border border-gray-200 shadow-sm rounded-xl p-6 w-full max-w-xl">
+        {% csrf_token %}
+
+        <!-- PILIH BARANG -->
+        <label class="block mb-2 font-semibold text-gray-700">Pilih Barang</label>
+        <select name="id_barang"
+                class="w-full border border-gray-300 p-2 rounded-lg mb-4 focus:ring focus:ring-blue-200"
+                required>
+            <option value="" disabled selected>-- Pilih Barang --</option>
+            {% for b in barang_list %}
+                <option value="{{ b.id_barang }}">{{ b.nama_barang }}</option>
+            {% endfor %}
+        </select>
+
+        <!-- JUMLAH -->
+        <label class="block mb-2 font-semibold text-gray-700">Jumlah Keluar</label>
+        <input type="number" name="jumlah" min="1"
+               class="w-full border border-gray-300 p-2 rounded-lg mb-4"
+               required>
+
+        <!-- PENERIMA -->
+        <label class="block mb-2 font-semibold text-gray-700">Penerima</label>
+        <input type="text" name="penerima"
+               class="w-full border border-gray-300 p-2 rounded-lg mb-4"
+               required>
+
+        <!-- TANGGAL -->
+        <label class="block mb-2 font-semibold text-gray-700">Tanggal</label>
+        <input type="date" name="tanggal"
+               class="w-full border border-gray-300 p-2 rounded-lg mb-4"
+               required>
+
+        <!-- BUKTI -->
+        <label class="block mb-2 font-semibold text-gray-700">Upload Bukti</label>
+        <input type="file" name="bukti_k"
+               class="w-full border border-gray-00 p-2 rounded-lg mb-4">
+
+        <!-- BUTTON -->
+        <button type="submit"
+                class="bg-sky-800 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow">
+            Simpan
+        </button>
+    </form>
+</div>
+
+{% endblock %}

@@ -1,0 +1,103 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Dashboard{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/output.css' %}">
+</head>
+
+<body class="bg-slate-100 text-gray-900">
+
+<!-- SIDEBAR -->
+<aside id="sidebar" 
+       class="fixed inset-y-0 left-0 w-64 bg-gray-900 text-gray-300 transform -translate-x-full 
+              transition-transform duration-300 z-50 flex flex-col">
+
+    <!-- Logo -->
+    <div class="px-6 py-5 border-b border-gray-800 flex justify-between items-center">
+        <h1 class="text-xl font-semibold text-white">StokApp</h1>
+        <button id="closeSidebar" class="text-white text-xl">&times;</button>
+    </div>
+
+    <!-- MENU -->
+    <nav class="px-3 py-4 space-y-1 flex-1">
+
+        <a href="/dashboard/" 
+           class="block px-4 py-2 rounded-lg font-medium 
+           {% if request.path == '/dashboard/' %} bg-blue-600 text-white {% else %} hover:bg-gray-800 {% endif %}">
+           Dashboard
+        </a>
+
+        <a href="/inventory/" 
+           class="block px-4 py-2 rounded-lg font-medium 
+           {% if request.path == '/inventory/' %} bg-blue-600 text-white {% else %} hover:bg-gray-800 {% endif %}">
+           Stok Barang
+        </a>
+
+        <a href="/masuk/" 
+           class="block px-4 py-2 rounded-lg font-medium 
+           {% if request.path == '/masuk/' %} bg-blue-600 text-white {% else %} hover:bg-gray-800 {% endif %}">
+           Barang Masuk
+        </a>
+
+        <a href="/keluar/" 
+           class="block px-4 py-2 rounded-lg font-medium 
+           {% if request.path == '/keluar/' %} bg-blue-600 text-white {% else %} hover:bg-gray-800 {% endif %}">
+           Barang Keluar
+        </a>
+
+    </nav>
+
+    <!-- LOGOUT (Posisi paling bawah) -->
+    <div class="px-5 py-4 border-t border-gray-800">
+        <a href="/accounts/logout/" 
+           class="text-red-400 hover:text-red-300 font-medium block">
+            Logout
+        </a>
+    </div>
+
+</aside>
+
+
+<!-- MAIN CONTENT -->
+<div class="min-h-screen flex flex-col">
+
+    <!-- HEADER -->
+    <header class="bg-slate-100 shadow px-6 py-4 flex items-center justify-between">
+
+        <button id="openSidebar" class="text-2xl text-gray-700">&#9776;</button>
+
+        <div class="text-right">
+            <p class="text-sm text-gray-600">Selamat datang</p>
+            <p class="font-semibold">{{ request.session.email }}</p>
+        </div>
+
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <main class="p-8">
+        {% block content %}
+        {% endblock %}
+    </main>
+
+</div>
+
+
+<!-- SIDEBAR SCRIPT -->
+<script>
+    const sidebar = document.getElementById("sidebar");
+    const openBtn = document.getElementById("openSidebar");
+    const closeBtn = document.getElementById("closeSidebar");
+
+    openBtn.addEventListener("click", () => {
+        sidebar.classList.remove("-translate-x-full");
+    });
+
+    closeBtn.addEventListener("click", () => {
+        sidebar.classList.add("-translate-x-full");
+    });
+</script>
+
+</body>
+</html>

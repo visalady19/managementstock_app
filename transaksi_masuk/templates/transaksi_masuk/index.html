@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% block title %}Data Barang Masuk{% endblock %}
+
+{% block content %}
+
+<div class="flex items-center justify-between mb-6">
+    <h1 class="text-2xl font-bold">Data Barang Masuk</h1>
+
+    <a href="/masuk/add/"
+       class="bg-sky-800 hover:bg-blue-700 text-white px-4 py-2 rounded-lg shadow text-sm">
+        Tambah Barang Masuk
+    </a>
+</div>
+
+<div class="bg-slate-100 border border-gray-300 rounded-xl shadow-sm p-6">
+
+    <div class="rounded-lg overflow-hidden bg-white border border-gray-200">
+        <table class="w-full text-sm border-collapse">
+
+            <!-- HEADER -->
+            <thead class="bg-slate-200 text-gray-700 border-b border-gray-300">
+                <tr>
+                    <th class="p-3 text-center font-bold">No</th>
+                    <th class="py-3 text-center font-bold w-60">Nama Barang</th>
+                    <th class="py-3 text-center font-bold w-40">Tanggal</th>
+                    <th class="py-3 text-center font-bold w-32">Jumlah</th>
+                    <th class="py-3 text-center font-bold">Keterangan</th>
+                    <th class="py-5 text-left font-bold">Bukti</th>
+                </tr>
+            </thead>
+
+            <!-- BODY -->
+            <tbody>
+                {% for m in data %}
+                <tr class="bg-white border-b border-gray-200 hover:bg-gray-50 transition">
+                    <td class="p-3 text-center font-medium">{{ forloop.counter }}</td>
+                    <td class="py-3 text-center">{{ m.nama_barang }}</td>
+                    <td class="py-3 text-center">{{ m.tanggal }}</td>
+                    <td class="py-3 text-center font-semibold">{{ m.jumlah_m }}</td>
+                    <td class="py-3 text-center">{{ m.keterangan }}</td>
+
+                    <!-- BUKTI GAMBAR -->
+                    <td class="py-3 text-center">
+                        {% if m.bukti_m %}
+                            <img src="/media/{{ m.bukti_m }}"
+                                 class="h-14 mx-auto rounded-md shadow-sm border border-gray-200 cursor-pointer hover:shadow-md transition"
+                                 onclick="openImageModal('/media/{{ m.bukti_m }}')">
+                        {% else %}
+                            <span class="text-gray-400 text-sm">Tidak ada</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+
+        </table>
+    </div>
+
+</div>
+
+
+<!-- 🔥 IMAGE MODAL -->
+<div id="imageModal"
+     class="fixed inset-0 bg-black/70 hidden items-center justify-center z-50 backdrop-blur-sm"
+     onclick="closeImageModal()">
+
+    <img id="modalImage"
+         class="max-w-4xl max-h-[90vh] rounded shadow-lg border border-gray-300"
+         onclick="event.stopPropagation()">
+</div>
+
+
+<!-- 🔥 ZOOM SCRIPT -->
+<script>
+function openImageModal(src) {
+    const modal = document.getElementById("imageModal");
+    const modalImg = document.getElementById("modalImage");
+
+    modalImg.src = src;
+    modal.classList.remove("hidden");
+    modal.classList.add("flex");
+}
+
+function closeImageModal() {
+    const modal = document.getElementById("imageModal");
+    modal.classList.add("hidden");
+    modal.classList.remove("flex");
+}
+
+document.addEventListener("keydown", function(e) {
+    if (e.key === "Escape") closeImageModal();
+});
+</script>
+
+{% endblock %}

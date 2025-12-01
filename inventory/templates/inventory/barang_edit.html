@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1 class="text-center text-2xl font-bold mb-6">Edit Barang</h1>
+
+<!-- PUSATKAN CARD -->
+<div class="flex justify-center">
+
+    <div class="bg-slate-100 p-6 rounded-xl shadow-md border border-gray-200 w-full max-w-xl">
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <!-- NAMA BARANG -->
+            <label class="block font-semibold text-gray-700 mb-1">Nama Barang</label>
+            <input type="text" name="nama_barang" value="{{ barang.1 }}"
+                   class="w-full border border-gray-300 rounded-lg p-3 focus:ring focus:ring-blue-200 focus:outline-none mb-4"
+                   required>
+
+            <!-- DESKRIPSI -->
+            <label class="block font-semibold text-gray-700 mb-1">Deskripsi</label>
+            <textarea name="deskripsi" rows="3"
+                      class="w-full border border-gray-300 rounded-lg p-3 focus:ring focus:ring-blue-200 focus:outline-none mb-4">{{ barang.2 }}</textarea>
+
+            <!-- STOK -->
+            <label class="block font-semibold text-gray-700 mb-1">Stok</label>
+            <input type="number" name="stock" value="{{ barang.3 }}"
+                   class="w-full border border-gray-300 rounded-lg p-3 focus:ring focus:ring-blue-200 focus:outline-none mb-6"
+                   required>
+
+            <!-- BUTTON -->
+            <button class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded-lg shadow text-sm font-medium transition">
+                Update
+            </button>
+
+        </form>
+
+    </div>
+
+</div>
+
+{% endblock %}
